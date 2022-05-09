@@ -103,11 +103,6 @@ const StyledProject = styled.li`
       @media (max-width: 768px) {
         grid-column: 1 / -1;
       }
-
-      @media (max-width: 425px) {
-        grid-column: 1 / -1;
-        height: 416px;
-      }
     }
   }
 
