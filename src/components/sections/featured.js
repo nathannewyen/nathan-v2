@@ -1,11 +1,26 @@
 import React, { useEffect, useRef } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import sr from '@utils/sr';
 import { srConfig } from '@config';
 import { Icon } from '@components/icons';
 import { usePrefersReducedMotion } from '@hooks';
+import { theme } from '@styles';
+
+// Import images
+import NFTImage from '../../../content/featured/halcyon.png';
+import SpotifyProfile from '../../../content/featured/spotify.png';
+import BeuterStore from '../../../content/featured/store.png';
+
+const StyledFeaturedImg = styled.img`
+  src: url(${props => props.src});
+  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: ${theme.borderRadius};
+  position: relative;
+  mix-blend-mode: multiply;
+  filter: grayscale(100%) contrast(1) brightness(90%);
+`;
 
 const StyledProjectsGrid = styled.ul`
   ${({ theme }) => theme.mixins.resetList};
@@ -304,34 +319,6 @@ const StyledProject = styled.li`
 `;
 
 const Featured = () => {
-  const data = useStaticQuery(graphql`
-    {
-      featured: allMarkdownRemark(
-        filter: { fileAbsolutePath: { regex: "/featured/" } }
-        sort: { fields: [frontmatter___date], order: ASC }
-      ) {
-        edges {
-          node {
-            frontmatter {
-              title
-              cover {
-                childImageSharp {
-                  gatsbyImageData(width: 700, placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-                }
-              }
-              tech
-              github
-              external
-              cta
-            }
-            html
-          }
-        }
-      }
-    }
-  `);
-
-  const featuredProjects = data.featured.edges.filter(({ node }) => node);
   const revealTitle = useRef(null);
   const revealProjects = useRef([]);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -352,63 +339,131 @@ const Featured = () => {
       </h2>
 
       <StyledProjectsGrid>
-        {featuredProjects &&
-          featuredProjects.map(({ node }, i) => {
-            const { frontmatter, html } = node;
-            const { external, title, tech, github, cover, cta } = frontmatter;
-            const image = getImage(cover);
+        <StyledProject>
+          <div className="project-content">
+            <div>
+              <p className="project-overline">Featured Project</p>
+              <h3 className="project-title">
+                <a href="/"> NFT Marketplace</a>
+              </h3>
+              <div className="project-description">
+                <p>
+                  A minimal, simple mobile app for buying and selling NFT I built with React Native.
+                </p>
+              </div>
+              <ul className="project-tech-list">
+                <li> React Native</li>
+                <li> CSS</li>
+                <li> Javascript ES6</li>
+              </ul>
+              <div className="project-links">
+                <a href="https://github.com/nathannewyen/nftProject" aria-label="GitHub Link">
+                  <Icon name="GitHub" />
+                </a>
+                <a
+                  href="https://expo.dev/@nhan13574/nftProject"
+                  aria-label="External Link"
+                  className="external"
+                >
+                  <Icon name="External" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="project-image">
+            <a href="https://github.com/nathannewyen/nftProject">
+              <StyledFeaturedImg src={NFTImage} alt="NFT Mktp" className="img" />
+            </a>
+          </div>
+        </StyledProject>
 
-            return (
-              <StyledProject key={i} ref={el => (revealProjects.current[i] = el)}>
-                <div className="project-content">
-                  <div>
-                    <p className="project-overline">Featured Project</p>
+        {/* Spotify Profile */}
+        <StyledProject>
+          <div className="project-content">
+            <div>
+              <p className="project-overline">Featured Project</p>
+              <h3 className="project-title">
+                <a href="/"> Spotify Profile</a>
+              </h3>
+              <div className="project-description">
+                <p>
+                  A web app for visualizing personalized Spotify data. View your top artists, top
+                  tracks, recently played tracks, and detailed audio information about each track.
+                  Create and save new playlists of recommended tracks based on your existing
+                  playlists and more.
+                </p>
+              </div>
+              <ul className="project-tech-list">
+                <li> Angular</li>
+                <li> Node.js</li>
+                <li> Express</li>
+                <li> Spotify Web API</li>
+              </ul>
+              <div className="project-links">
+                <a
+                  href="https://github.com/nathannewyen/octoProfile-github"
+                  aria-label="GitHub Link"
+                >
+                  <Icon name="GitHub" />
+                </a>
+                <a
+                  href="https://heroku-spotify-project.herokuapp.com/"
+                  aria-label="External Link"
+                  className="external"
+                >
+                  <Icon name="External" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="project-image">
+            <a href="https://github.com/nathannewyen/octoProfile-github">
+              <StyledFeaturedImg src={SpotifyProfile} alt="SpotifyProfile" className="img" />
+            </a>
+          </div>
+        </StyledProject>
 
-                    <h3 className="project-title">
-                      <a href={external}>{title}</a>
-                    </h3>
-
-                    <div
-                      className="project-description"
-                      dangerouslySetInnerHTML={{ __html: html }}
-                    />
-
-                    {tech.length && (
-                      <ul className="project-tech-list">
-                        {tech.map((tech, i) => (
-                          <li key={i}>{tech}</li>
-                        ))}
-                      </ul>
-                    )}
-
-                    <div className="project-links">
-                      {cta && (
-                        <a href={cta} aria-label="Course Link" className="cta">
-                          Learn More
-                        </a>
-                      )}
-                      {github && (
-                        <a href={github} aria-label="GitHub Link">
-                          <Icon name="GitHub" />
-                        </a>
-                      )}
-                      {external && !cta && (
-                        <a href={external} aria-label="External Link" className="external">
-                          <Icon name="External" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="project-image">
-                  <a href={external ? external : github ? github : '#'}>
-                    <GatsbyImage image={image} alt={title} className="img" />
-                  </a>
-                </div>
-              </StyledProject>
-            );
-          })}
+        {/* Beuter Store */}
+        <StyledProject>
+          <div className="project-content">
+            <div>
+              <p className="project-overline">Featured Project</p>
+              <h3 className="project-title">
+                <a href="/"> The Beuter Store</a>
+              </h3>
+              <div className="project-description">
+                <p>
+                  Full stack web app utilizing MongoDB OOP for the database. A commerce web app for
+                  clothing store, I am using Node.js, Express, Mongodb and React to create this
+                  project and using Styled Components for layout and design.
+                </p>
+              </div>
+              <ul className="project-tech-list">
+                <li> Angular</li>
+                <li> Node.js</li>
+                <li> Express</li>
+                <li> Spotify Web API</li>
+              </ul>
+              <div className="project-links">
+                <a href="https://github.com/nathannewyen/the-beuter" aria-label="GitHub Link">
+                  <Icon name="GitHub" />
+                </a>
+                <a
+                  href="http://thebeuter.herokuapp.com/"
+                  aria-label="External Link"
+                  className="external"
+                >
+                  <Icon name="External" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="project-image">
+            <a href="https://github.com/nathannewyen/the-beuter">
+              <StyledFeaturedImg src={BeuterStore} alt="SpotifyProfile" className="img" />
+            </a>
+          </div>
+        </StyledProject>
       </StyledProjectsGrid>
     </section>
   );
