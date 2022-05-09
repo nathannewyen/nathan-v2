@@ -4,6 +4,7 @@ import sr from '@utils/sr';
 import { srConfig } from '@config';
 import { Icon } from '@components/icons';
 import { usePrefersReducedMotion } from '@hooks';
+import Img from 'gatsby-image';
 import { theme } from '@styles';
 import media from '../../styles/media';
 
@@ -12,7 +13,7 @@ import NFTImage from '../../../content/featured/halcyon.png';
 import SpotifyProfile from '../../../content/featured/spotify.png';
 import BeuterStore from '../../../content/featured/store.png';
 
-const StyledFeaturedImg = styled.img`
+const StyledFeaturedImg = styled(Img)`
   src: url(${props => props.src});
   width: 100%;
   max-width: 100%;
@@ -22,11 +23,17 @@ const StyledFeaturedImg = styled.img`
   mix-blend-mode: multiply;
   filter: grayscale(100%) contrast(1) brightness(90%);
   ${media.tablet`
-  object-fit: cover;
-  width: auto;
-  height: 100%;
-  filter: grayscale(100%) contrast(1) brightness(80%);
-`};
+    object-fit: cover;
+    width: auto;
+    height: 100%;
+    filter: grayscale(100%) contrast(1) brightness(80%);
+  `};
+  ${media.phone`
+    object-fit: cover;
+    width: auto;
+    height: 100%;
+    filter: grayscale(100%) contrast(1) brightness(80%);
+  `};
 `;
 
 const StyledProjectsGrid = styled.ul`
@@ -467,7 +474,7 @@ const Featured = () => {
           </div>
           <div className="project-image">
             <a href="https://github.com/nathannewyen/the-beuter">
-              <StyledFeaturedImg src={BeuterStore} alt="SpotifyProfile" className="img" />
+              <StyledFeaturedImg fluid={BeuterStore} alt="SpotifyProfile" className="img" />
             </a>
           </div>
         </StyledProject>
