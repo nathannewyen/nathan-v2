@@ -5,7 +5,6 @@ import { srConfig } from '@config';
 import { Icon } from '@components/icons';
 import { usePrefersReducedMotion } from '@hooks';
 import { theme } from '@styles';
-import media from '../../styles/media';
 
 // Import images
 import NFTImage from '../../../content/featured/halcyon.png';
@@ -21,17 +20,6 @@ const StyledFeaturedImg = styled.img`
   position: relative;
   mix-blend-mode: multiply;
   filter: grayscale(100%) contrast(1) brightness(90%);
-  ${media.tablet`
-    object-fit: cover;
-    width: auto;
-    height: 100%;
-    filter: grayscale(100%) contrast(1) brightness(80%);
-  `};
-  ${media.phone`
-    width: auto;
-    height: 100%;
-    filter: grayscale(100%) contrast(1) brightness(80%);
-  `};
 `;
 
 const StyledProjectsGrid = styled.ul`
@@ -114,6 +102,11 @@ const StyledProject = styled.li`
 
       @media (max-width: 768px) {
         grid-column: 1 / -1;
+      }
+
+      @media (max-width: 425px) {
+        grid-column: 1 / -1;
+        height: 416px;
       }
     }
   }
@@ -472,7 +465,7 @@ const Featured = () => {
           </div>
           <div className="project-image">
             <a href="https://github.com/nathannewyen/the-beuter">
-              <StyledFeaturedImg src={BeuterStore} alt="SpotifyProfile" className="img" />
+              <StyledFeaturedImg src={BeuterStore} alt="BeuterStore" className="img" />
             </a>
           </div>
         </StyledProject>
