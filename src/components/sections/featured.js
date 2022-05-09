@@ -28,7 +28,6 @@ const StyledFeaturedImg = styled.img`
     filter: grayscale(100%) contrast(1) brightness(80%);
   `};
   ${media.phone`
-    object-fit: cover;
     width: auto;
     height: 100%;
     filter: grayscale(100%) contrast(1) brightness(80%);
@@ -473,7 +472,7 @@ const Featured = () => {
           </div>
           <div className="project-image">
             <a href="https://github.com/nathannewyen/the-beuter">
-              <StyledFeaturedImg fluid={BeuterStore} alt="SpotifyProfile" className="img" />
+              <StyledFeaturedImg src={BeuterStore} alt="SpotifyProfile" className="img" />
             </a>
           </div>
         </StyledProject>
