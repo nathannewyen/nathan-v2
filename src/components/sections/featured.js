@@ -4,7 +4,6 @@ import sr from '@utils/sr';
 import { srConfig } from '@config';
 import { Icon } from '@components/icons';
 import { usePrefersReducedMotion } from '@hooks';
-import Img from 'gatsby-image';
 import { theme } from '@styles';
 import media from '../../styles/media';
 
@@ -13,7 +12,7 @@ import NFTImage from '../../../content/featured/halcyon.png';
 import SpotifyProfile from '../../../content/featured/spotify.png';
 import BeuterStore from '../../../content/featured/store.png';
 
-const StyledFeaturedImg = styled(Img)`
+const StyledFeaturedImg = styled.img`
   src: url(${props => props.src});
   width: 100%;
   max-width: 100%;
