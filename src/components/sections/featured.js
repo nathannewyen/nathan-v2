@@ -315,7 +315,7 @@ const StyledProject = styled.li`
         filter: grayscale(100%) contrast(1) brightness(50%);
       }
 
-      @media (max-width: 425px) {
+      @media (max-width: 428px) {
         object-fit: cover;
         width: auto;
         height: 416px;
