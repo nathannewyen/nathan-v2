@@ -314,6 +314,13 @@ const StyledProject = styled.li`
         height: 100%;
         filter: grayscale(100%) contrast(1) brightness(50%);
       }
+
+      @media (max-width: 425px) {
+        object-fit: cover;
+        width: auto;
+        height: 416px;
+        filter: grayscale(100%) contrast(1) brightness(50%);
+      }
     }
   }
 `;
